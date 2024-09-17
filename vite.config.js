@@ -8,4 +8,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        manifest: true,
+        outDir: 'public/build',  // This ensures the manifest is built in the correct directory
+    },
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jobs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobsController extends Controller
 {
@@ -15,7 +16,7 @@ class JobsController extends Controller
         return view('jobs.index', ['jobs' => $jobs]);
     }
 
-    public function create($job)
+    public function create()
     {
         return view('jobs.create');
     }
@@ -43,6 +44,14 @@ class JobsController extends Controller
 
     public function edit(Jobs $job)
     {
+        if(Auth::guest()) {
+            return redirect('/login');
+        }
+
+        if($job->employer->user->is(Auth::user())) {
+
+        }
+
         return view('jobs.edit', ['job' => $job]);
     }
 
@@ -71,7 +80,7 @@ class JobsController extends Controller
         return redirect('/jobs/'.$job->id);
     }
 
-    public function destroy(JObs $job)
+    public function destroy(Jobs $job)
     {
         //authorize
 
