@@ -15,13 +15,17 @@ class SessionController extends Controller
 
     public function store ()
     {
-        //validate
+        // validate
+        // no need to catch these errors in the view 
+        // laravel will do it automatically
         $attributes = request()->validate([
             'email' => ['required', 'email', 'max:254'],
             'password' => ['required']
         ]);
 
-        //attempt to login the user
+        // attempt to login the user
+        // no need to catch these errors in the view 
+        // laravel will do it automatically
         if( !Auth::attempt($attributes)) {
             throw ValidationException::withMessages([
                 'email' => 'Sorry, those credentials do not match.',
